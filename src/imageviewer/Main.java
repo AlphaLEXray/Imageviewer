@@ -88,8 +88,8 @@ public class Main {
 		
 		//boolean parameter = true;
 		
-		//Filechooser
-		File imageFile = main.chooseFile();
+		//File/-Directorychooser
+		File imageFile = main.chooseFile(); //chooses files
 		String path = imageFile.getAbsolutePath();
 						
 		//File[] filesList = main.ListOfFiles(path);
@@ -103,7 +103,7 @@ public class Main {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = (int) screenSize.getWidth();
 		int height = (int) screenSize.getHeight();
-
+		
 		
 				
 				
