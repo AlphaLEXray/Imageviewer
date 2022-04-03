@@ -9,11 +9,9 @@ import javax.swing.JLabel;
 //import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
-
 import java.io.IOException;
 //import java.util.List;
 
@@ -102,11 +100,7 @@ public class Main {
 		//Source: https://stackoverflow.com/questions/3680221/how-can-i-get-screen-resolution-in-java
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = (int) screenSize.getWidth();
-		int height = (int) screenSize.getHeight();
-		
-		
-				
-				
+		int height = (int) screenSize.getHeight();	
 		
 		//JFrame
 		JFrame frame = new JFrame();
@@ -142,12 +136,6 @@ public class Main {
 		**/
 		//Add label to frame
 		frame.add(label);
-
-		
-
-
-		
-		
 	}
 
 }
