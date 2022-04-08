@@ -17,12 +17,15 @@ import java.io.IOException;
 
 public class Main {
 	
+	//Returns a list of Files based on the filepath given
+	/*
 	public File[] ListOfFiles(String pPath) throws IOException {
 	      //Creating a File object for directory
 	      File directoryPath = new File(pPath);
 	      //List of all files and directories
 	      File filesList[] = directoryPath.listFiles();
 	      return(filesList);
+	     */
 	      
 	}
 	
