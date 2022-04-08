@@ -32,11 +32,9 @@ public class Main {
 	
 	//Source: http://www.java2s.com/Code/Java/Swing-JFC/SelectadirectorywithaJFileChooser.htm
 	public File chooseDirectory() {
-		FileFilter pngFilter = new FileNameExtensionFilter("Png file(.png)");
-		FileFilter jpegFilter = new FileNameExtensionFilter(".jpeg");
+		FileFilter imageFileFilter = new FileNameExtensionFilter("JPEG/PNG(.png, .jpeg)", "png", "jpeg");
 		JFileChooser chooser = new JFileChooser();
-		chooser.addChoosableFileFilter(jpegFilter);
-		chooser.addChoosableFileFilter(pngFilter);
+		chooser.addChoosableFileFilter(imageFileFilter);
 	    chooser.setCurrentDirectory(new java.io.File("."));
 	    chooser.setDialogTitle("Choose a Directory");
 	    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
