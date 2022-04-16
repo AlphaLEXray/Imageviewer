@@ -2,7 +2,7 @@
 
 This is just a simple image viewer written in java, where you select a folder with your images and it cycles between them endlessly.
 
-## Prerequsites
+## Prerequisites
 
 - Java must be installed on your computer.
 - The images you want to display must be the same resolution as the display you are displaying them on.
