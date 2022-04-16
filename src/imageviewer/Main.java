@@ -1,19 +1,15 @@
 package imageviewer;
 
-//import java.awt.Color;
-//import javax.imageio.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-//import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
-//import java.util.List;
 
 public class Main {
 	
@@ -149,8 +145,7 @@ public class Main {
 			}
 		}
 	}
-	      
-	//@SuppressWarnings("null")
+	
 	public static void main(String[] args) throws Exception {
 		Main main = new Main();
 		main.showImagesInDirectory();
