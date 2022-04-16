@@ -154,46 +154,66 @@ public class Main {
 		frame.add(label);
 	}
 	
-	public void showImagesInDirectory() throws IOException, InterruptedException {
-		
-		boolean parameter = true;
-		
-		//Directory chooser
-		File imageDirectory = chooseDirectory();// chooses a Directory
-		
-		File[] imagesFromDirectory = ListOfFiles(imageDirectory.getAbsolutePath());
+	public JFrame createFrame(String pPath) {
 		
 		//Source: https://stackoverflow.com/questions/3680221/how-can-i-get-screen-resolution-in-java
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int width = (int) screenSize.getWidth();
 		int height = (int) screenSize.getHeight();
-
-		//while(parameter) {
-			for (int i = 0; i < imagesFromDirectory.length; i++) {
-				String path = imagesFromDirectory[i].getAbsolutePath();
-				
-				//ImageIcon
-				ImageIcon image = new ImageIcon(path);
-					
-				
-				//JFrame
-				JFrame frame = new JFrame();
-				frame.setIconImage(image.getImage());
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setTitle("Image Viewer v.1.0");
-				frame.setVisible(true);
-				frame.setSize(width, height);
-				
-				//JLabel
-				JLabel label = new JLabel();
-				label.setIcon(image);
 		
-				//Add label to frame
-				frame.add(label);
-				Thread.sleep(5000);
-				frame.remove(label);
+		ImageIcon image = new ImageIcon(pPath);
+		
+		//JFrame
+		JFrame frame = new JFrame();
+		frame.setIconImage(image.getImage());
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Image Viewer v.1.0");
+		frame.setVisible(true);
+		frame.setSize(width, height);
+
+		return(frame);
+	}
+	
+	public JLabel createLabel(ImageIcon pImageIcon) {
+		//JLabel
+		JLabel label = new JLabel();
+		label.setIcon(pImageIcon);
+		return(label);
+	}
+	
+	public ImageIcon createImageIcon(String pPath) {
+		ImageIcon image = new ImageIcon(pPath);
+		return(image);
+	}
+	public void showImagesInDirectory() throws IOException, InterruptedException {
+			
+		int sleeptime = 2500;
+		boolean parameter = true;
+		//Directory chooser
+		File imageDirectory = chooseDirectory();// chooses a Directory
+			
+		File[] imagesFromDirectory = ListOfFiles(imageDirectory.getAbsolutePath());
+		
+		int i = 0;
+		String path = imagesFromDirectory[i].getAbsolutePath();
+		JFrame frame = createFrame(path);
+		ImageIcon image = createImageIcon(path);
+		JLabel label = createLabel(image);
+		frame.add(label);
+		
+		while(parameter) {
+			i = 0;
+			String path0 = imagesFromDirectory[i].getAbsolutePath();
+			ImageIcon image0 = createImageIcon(path0);
+			label.setIcon(image0);
+			Thread.sleep(sleeptime);
+			for (i = 1; i < imagesFromDirectory.length; i++) {
+				String path1 = imagesFromDirectory[i].getAbsolutePath();
+				ImageIcon image1 = createImageIcon(path1);
+				label.setIcon(image1);
+				Thread.sleep(sleeptime);
 			}
-		//}
+		}
 	}
 	      
 	//@SuppressWarnings("null")
