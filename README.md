@@ -1,6 +1,6 @@
 # README
 
-This is just a simple image viewer written in java.
+This is just a simple image viewer written in java, where you select a folder with your images and it cycles between them endlessly.
 
 ## Prerequsites
 
