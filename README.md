@@ -6,6 +6,7 @@ This is just a simple image viewer written in java, where you select a folder wi
 
 - Java must be installed on your computer.
 - The images you want to display must be the same resolution as the display you are displaying them on.
+- The JAR-file must be allowed to execute
 
 ## Usage
 
