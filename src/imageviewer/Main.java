@@ -206,11 +206,13 @@ public class Main {
 			String path0 = imagesFromDirectory[i].getAbsolutePath();
 			ImageIcon image0 = createImageIcon(path0);
 			label.setIcon(image0);
+			frame.setIconImage(image0.getImage());
 			Thread.sleep(sleeptime);
 			for (i = 1; i < imagesFromDirectory.length; i++) {
 				String path1 = imagesFromDirectory[i].getAbsolutePath();
 				ImageIcon image1 = createImageIcon(path1);
 				label.setIcon(image1);
+				frame.setIconImage(image1.getImage());
 				Thread.sleep(sleeptime);
 			}
 		}
