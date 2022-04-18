@@ -82,7 +82,7 @@ public class Main {
 		frame.add(label);
 	}
 	
-	public JFrame createFrame(String pPath) {
+	public JFrame createFrame(String pPath, String pVersion) {
 		
 		//Source: https://stackoverflow.com/questions/3680221/how-can-i-get-screen-resolution-in-java
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -95,7 +95,7 @@ public class Main {
 		JFrame frame = new JFrame();
 		frame.setIconImage(image.getImage());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Image Viewer v.1.0");
+		frame.setTitle("Image Viewer "+pVersion);
 		frame.setVisible(true);
 		frame.setSize(width, height);
 
@@ -114,7 +114,7 @@ public class Main {
 		return(image);
 	}
 	public void showImagesInDirectory() throws IOException, InterruptedException {
-			
+		String version = "v0.1.0";
 		int sleeptime = 2500;
 		boolean parameter = true;
 		//Directory chooser
@@ -124,7 +124,7 @@ public class Main {
 		
 		int i = 0;
 		String path = imagesFromDirectory[i].getAbsolutePath();
-		JFrame frame = createFrame(path);
+		JFrame frame = createFrame(path, version);
 		ImageIcon image = createImageIcon(path);
 		JLabel label = createLabel(image);
 		frame.add(label);
