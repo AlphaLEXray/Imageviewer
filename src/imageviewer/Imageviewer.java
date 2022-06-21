@@ -13,6 +13,20 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Imageviewer {
+	
+	public void viewerstart() throws IOException, InterruptedException {
+		String version = "v0.3.0";
+		File source = chooseSource();
+		if(source.isFile()) {
+			viewerstartFile(source, version);
+		}
+		else if (source.isDirectory()) {
+			viewerstartFolder(source, version);
+		}
+		else {
+			System.exit(0);
+		}
+	}
 
 	public void viewerstartFile(File pFile, String pVersion) throws IOException, InterruptedException {
 		File chosenFile = pFile;
@@ -154,9 +168,6 @@ public class Imageviewer {
 		} else {
 			System.exit(0);
 		}
-		
-		System.out.println(chosen);
-		
 		return (chosen);
 	}
 
