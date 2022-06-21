@@ -14,24 +14,24 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Imageviewer {
 
-	public void viewerstartFile() throws IOException, InterruptedException {
-		File chosenFile = chooseFile();
+	public void viewerstartFile(File pFile, String pVersion) throws IOException, InterruptedException {
+		File chosenFile = pFile;
 		ImageIcon image = fileToImageIcon(chosenFile);
 		Dimension screenSize = getScreenSize();
 		int width = (int) screenSize.getWidth();
 		int height = (int) screenSize.getHeight();
 		image = resizeImage(image, width, height);
-		JFrame frame = createFrame(image, "v0.2.0", width, height);
+		JFrame frame = createFrame(image, pVersion, width, height);
 		JLabel label = createLabel(image);
 		frame.add(label);
 	}
 
-	public void viewerstartFolder() throws IOException, InterruptedException {
+	public void viewerstartFolder(File pFile, String pVersion) throws IOException, InterruptedException {
 
 		// Directory chooser
-		File imageDirectory = chooseDirectory();// chooses a Directory
+		File imageDirectory = pFile;//chooseDirectory();// chooses a Directory
 
-		String version = "v0.2.0";
+		//String version = "v0.2.0";
 		int sleeptime = 2500;
 		boolean parameter = true;
 
@@ -45,7 +45,7 @@ public class Imageviewer {
 		int imageWidth = (int) screenSize.getWidth();
 		int imageHeight = (int) screenSize.getHeight();
 
-		JFrame frame = createFrame(image, version, imageWidth, imageHeight);
+		JFrame frame = createFrame(image, pVersion, imageWidth, imageHeight);
 
 		// read commands in folder name
 		String[] commands = splitString(imageDirectory.getPath());
@@ -136,6 +136,27 @@ public class Imageviewer {
 		} else {
 			System.exit(0);
 		}
+		return (chosen);
+	}
+	
+	public File chooseSource() {
+		//chooseFile SourceCode
+		FileFilter imageFileFilter = new FileNameExtensionFilter("JPEG/PNG(.png, .jpeg)", "png", "jpeg");
+		JFileChooser chooser = new JFileChooser();
+		chooser.addChoosableFileFilter(imageFileFilter);
+		chooser.setCurrentDirectory(new java.io.File("."));
+		chooser.setDialogTitle("Choose a source (file or folder)");
+		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		chooser.setAcceptAllFileFilterUsed(false);
+		File chosen = null;
+		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			chosen = chooser.getSelectedFile();
+		} else {
+			System.exit(0);
+		}
+		
+		System.out.println(chosen);
+		
 		return (chosen);
 	}
 
