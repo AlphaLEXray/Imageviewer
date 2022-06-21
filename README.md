@@ -16,3 +16,22 @@ This program is pretty simple to use.
 2. Execute the jar-file. The jar-file can be downloaded here: https://github.com/AlphaLEXray/Imageviewer/releases/download/v0.2.0/Imageviewer-v0.2.0.jar
 3. Select the folder with the images in the built in chooser.
 4. Enjoy your images being displayed one after the other.
+
+### Commands
+
+Seperate the folder name and the commands with the "|" charachter.
+
+
+image resolution &rarr; ir|width|height
+
+frame resolution &rarr; fr|width|height
+
+frame and image resolution &rarr; fir|width|height
+
+loop time (time spent on each image) &rarr; lt|time (in milliseconds)
+
+**Example**:
+
+To set the image and frame resolution to 1920x1080 pixels and a loop time of 2 seconds (2000 milliseconds):
+
+> foldername|fir|1920|1080|lt|2000 
