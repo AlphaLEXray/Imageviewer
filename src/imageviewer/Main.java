@@ -4,7 +4,8 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		Imageviewer viewer = new Imageviewer();
-		viewer.showImagesInDirectory();
+		//viewer.showImagesInDirectory();
+		viewer.viewerstartFolder();
 	}
 
 }
