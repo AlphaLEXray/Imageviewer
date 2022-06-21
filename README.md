@@ -21,14 +21,10 @@ This program is pretty simple to use.
 
 Seperate the folder name and the commands with the "|" charachter.
 
-
-image resolution &rarr; ir|width|height
-
-frame resolution &rarr; fr|width|height
-
-frame and image resolution &rarr; fir|width|height
-
-loop time (time spent on each image) &rarr; lt|time (in milliseconds)
+- image resolution &rarr; ir|width|height
+- frame resolution &rarr; fr|width|height
+- frame and image resolution &rarr; fir|width|height
+- loop time (time spent on each image) &rarr; lt|time (in milliseconds)
 
 **Example**:
 
