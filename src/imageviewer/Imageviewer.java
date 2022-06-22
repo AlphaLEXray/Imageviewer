@@ -49,6 +49,7 @@ public class Imageviewer {
 		File imageDirectory = pFile;// chooseDirectory();// chooses a Directory
 
 		int sleeptime = 2500;
+		int sleeptimestorage = 2500;
 		boolean parameter = true;
 
 		File[] imagesFromDirectory = fileHandler.ListOfFiles(imageDirectory.getAbsolutePath());
@@ -88,6 +89,7 @@ public class Imageviewer {
 
 			else if (commands[x].equals("lt")) {
 				sleeptime = Integer.parseInt(commands[x + 1]);
+				sleeptimestorage = sleeptime;
 			}
 
 			else if (commands[x].equals("ff")) {
@@ -177,6 +179,10 @@ public class Imageviewer {
 				}
 				else if (myFrame.getKeyChar() == '9') {
 					sleeptime = 9000;
+					myFrame.setKeyCharEmpty();
+				}
+				else if (myFrame.getKeyChar() == '0') {
+					sleeptime = sleeptimestorage;
 					myFrame.setKeyCharEmpty();
 				}
 
