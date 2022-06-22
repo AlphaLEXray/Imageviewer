@@ -3,6 +3,7 @@ package imageviewer;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.ImageIcon;
@@ -11,45 +12,51 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.util.*;
 
 public class Imageviewer {
-	
+
 	public void viewerstart() throws IOException, InterruptedException {
+		// new instances of classes
+		FileHandler fileHandler = new FileHandler();
+
 		String version = "v0.3.0";
-		File source = chooseSource();
-		if(source.isFile()) {
+		File source = fileHandler.chooseSource();
+		if (source.isFile()) {
 			viewerstartFile(source, version);
-		}
-		else if (source.isDirectory()) {
+		} else if (source.isDirectory()) {
 			viewerstartFolder(source, version);
-		}
-		else {
+		} else {
 			System.exit(0);
 		}
 	}
 
 	public void viewerstartFile(File pFile, String pVersion) throws IOException, InterruptedException {
+		MyFrame myFrame = new MyFrame();
 		File chosenFile = pFile;
 		ImageIcon image = fileToImageIcon(chosenFile);
 		Dimension screenSize = getScreenSize();
 		int width = (int) screenSize.getWidth();
 		int height = (int) screenSize.getHeight();
 		image = resizeImage(image, width, height);
-		JFrame frame = createFrame(image, pVersion, width, height);
+		JFrame frame = myFrame.createFrame(image, pVersion, width, height);
 		JLabel label = createLabel(image);
 		frame.add(label);
+		frame.setVisible(true);
 	}
 
 	public void viewerstartFolder(File pFile, String pVersion) throws IOException, InterruptedException {
+		// new instances of classes
+		MyFrame myFrame = new MyFrame();
+		FileHandler fileHandler = new FileHandler();
 
 		// Directory chooser
-		File imageDirectory = pFile;//chooseDirectory();// chooses a Directory
+		File imageDirectory = pFile;// chooseDirectory();// chooses a Directory
 
-		//String version = "v0.2.0";
 		int sleeptime = 2500;
 		boolean parameter = true;
 
-		File[] imagesFromDirectory = ListOfFiles(imageDirectory.getAbsolutePath());
+		File[] imagesFromDirectory = fileHandler.ListOfFiles(imageDirectory.getAbsolutePath());
 
 		int i = 0;
 
@@ -59,15 +66,15 @@ public class Imageviewer {
 		int imageWidth = (int) screenSize.getWidth();
 		int imageHeight = (int) screenSize.getHeight();
 
-		JFrame frame = createFrame(image, pVersion, imageWidth, imageHeight);
+		JFrame frame = myFrame.createFrame(image, pVersion, imageWidth, imageHeight);
 
 		// read commands in folder name
 		String[] commands = splitString(imageDirectory.getPath());
 
 		for (int x = 0; x < commands.length; x++) {
-			if(commands[x].equals("ir")) {
-				imageWidth = Integer.parseInt(commands[x+1]);
-				imageHeight = Integer.parseInt(commands[x+2]);
+			if (commands[x].equals("ir")) {
+				imageWidth = Integer.parseInt(commands[x + 1]);
+				imageHeight = Integer.parseInt(commands[x + 2]);
 			}
 
 			else if (commands[x].equals("fr")) {
@@ -75,24 +82,29 @@ public class Imageviewer {
 				int commandHeight = Integer.parseInt(commands[x + 2]);
 				frame.setSize(commandWidth, commandHeight);
 			}
-			
+
 			else if (commands[x].equals("fir")) {
 				int commandWidth = Integer.parseInt(commands[x + 1]);
 				int commandHeight = Integer.parseInt(commands[x + 2]);
 				frame.setSize(commandWidth, commandHeight);
-				imageWidth = Integer.parseInt(commands[x+1]);
-				imageHeight = Integer.parseInt(commands[x+2]);
+				imageWidth = Integer.parseInt(commands[x + 1]);
+				imageHeight = Integer.parseInt(commands[x + 2]);
 			}
-			
-			else if(commands[x].equals("lt")) {
-				sleeptime = Integer.parseInt(commands[x+1]);
+
+			else if (commands[x].equals("lt")) {
+				sleeptime = Integer.parseInt(commands[x + 1]);
 			}
-			
+
+			else if (commands[x].equals("ff")) {
+				frame.dispose();
+				frame = myFrame.createWindowedFullscreenFrame(image, pVersion, imageWidth, imageHeight);
+			}
+
 		}
 
 		JLabel label = createLabel(image);
 		frame.add(label);
-		
+
 		while (parameter) {
 			i = 0;
 			String path0 = imagesFromDirectory[i].getAbsolutePath();
@@ -107,115 +119,39 @@ public class Imageviewer {
 				image1 = resizeImage(image1, imageWidth, imageHeight);
 				label.setIcon(image1);
 				frame.setIconImage(image1.getImage());
+
+				if (myFrame.getKeyChar() == '' && myFrame.getFullscreen()) {
+
+					JFrame tempFrame = frame;
+					frame.dispose();
+					frame = myFrame.createFrame(image1, pVersion, imageWidth, imageHeight);
+					frame.add(label);
+					label.setIcon(image1);
+					tempFrame.dispose();
+
+				} else if (myFrame.getKeyChar() == 'f' && !myFrame.getFullscreen()) {
+					JFrame tempFrame = frame;
+					frame.dispose();
+					frame = myFrame.createWindowedFullscreenFrame(image1, pVersion, imageWidth, imageHeight);
+					frame.add(label);
+					label.setIcon(image1);
+					tempFrame.dispose();
+					myFrame.setKeyCharEmpty();
+				} else if (myFrame.getKeyChar() == 'f' && myFrame.getFullscreen()) {
+					JFrame tempFrame = frame;
+					frame.dispose();
+					frame = myFrame.createFrame(image1, pVersion, imageWidth, imageHeight);
+					frame.add(label);
+					label.setIcon(image1);
+					tempFrame.dispose();
+					myFrame.setKeyCharEmpty();
+				} else if (myFrame.getKeyChar() == 'q') {
+					System.exit(0);
+				}
+
 				Thread.sleep(sleeptime);
 			}
 		}
-	}
-
-	// Returns a list of Files based on the filepath given
-	public File[] ListOfFiles(String pPath) throws IOException {
-		// Creating a File object for directory
-		File directoryPath = new File(pPath);
-		// List of all files and directories
-		File filesList[] = directoryPath.listFiles();
-		return (filesList);
-	}
-
-	// Source:
-	// http://www.java2s.com/Code/J0ava/Swing-JFC/SelectadirectorywithaJFileChooser.htm
-	public File chooseDirectory() {
-		JFileChooser chooser = new JFileChooser();
-		chooser.setCurrentDirectory(new java.io.File("."));
-		chooser.setDialogTitle("Choose a Directory");
-		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		chooser.setAcceptAllFileFilterUsed(false);
-		File chosen = null;
-		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			chosen = chooser.getSelectedFile();
-		}
-		return (chosen);
-	}
-
-	public File chooseFile() {
-		FileFilter imageFileFilter = new FileNameExtensionFilter("JPEG/PNG(.png, .jpeg)", "png", "jpeg");
-		JFileChooser chooser = new JFileChooser();
-		chooser.addChoosableFileFilter(imageFileFilter);
-		chooser.setCurrentDirectory(new java.io.File("."));
-		chooser.setDialogTitle("Choose a File");
-		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		chooser.setAcceptAllFileFilterUsed(false);
-		File chosen = null;
-		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			chosen = chooser.getSelectedFile();
-		} else {
-			System.exit(0);
-		}
-		return (chosen);
-	}
-	
-	public File chooseSource() {
-		//chooseFile SourceCode
-		FileFilter imageFileFilter = new FileNameExtensionFilter("JPEG/PNG(.png, .jpeg)", "png", "jpeg");
-		JFileChooser chooser = new JFileChooser();
-		chooser.addChoosableFileFilter(imageFileFilter);
-		chooser.setCurrentDirectory(new java.io.File("."));
-		chooser.setDialogTitle("Choose a source (file or folder)");
-		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		chooser.setAcceptAllFileFilterUsed(false);
-		File chosen = null;
-		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			chosen = chooser.getSelectedFile();
-		} else {
-			System.exit(0);
-		}
-		return (chosen);
-	}
-
-	public void showImage(File pFile) throws IOException {
-		// File chooser
-		// File imageFile = chooseFile(); // chooses files
-		File imageFile = pFile;
-		String path = imageFile.getAbsolutePath();
-
-		// ImageIcon
-		ImageIcon image = new ImageIcon(path);
-
-		// Source:
-		// https://stackoverflow.com/questions/3680221/how-can-i-get-screen-resolution-in-java
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = (int) screenSize.getWidth();
-		int height = (int) screenSize.getHeight();
-
-		// JFrame
-		JFrame frame = new JFrame();
-		frame.setIconImage(image.getImage());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Image Viewer v0.2.0");
-		frame.setVisible(true);
-		frame.setSize(width, height);
-
-		// JLabel
-		JLabel label = new JLabel();
-		label.setIcon(image);
-
-		// Add label to frame
-		frame.add(label);
-	}
-
-	public JFrame createFrame(ImageIcon pImageIcon, String pVersion, int pWidth, int pHeight) {
-
-		ImageIcon image = pImageIcon;
-
-		// JFrame
-		JFrame frame = new JFrame();
-		frame.setIconImage(image.getImage());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Image Viewer " + pVersion);
-
-		frame.setVisible(true);
-		frame.setSize(pWidth, pHeight);
-
-		return (frame);
 	}
 
 	public JLabel createLabel(ImageIcon pImageIcon) {
