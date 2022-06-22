@@ -148,6 +148,42 @@ public class Imageviewer {
 				} else if (myFrame.getKeyChar() == 'q') {
 					System.exit(0);
 				}
+				else if (myFrame.getKeyChar() == '1') {
+					sleeptime = 1000;
+					myFrame.setKeyCharEmpty();
+				}
+				else if (myFrame.getKeyChar() == '2') {
+					sleeptime = 2000;
+					myFrame.setKeyCharEmpty();
+				}
+				else if (myFrame.getKeyChar() == '3') {
+					sleeptime = 3000;
+					myFrame.setKeyCharEmpty();
+				}
+				else if (myFrame.getKeyChar() == '4') {
+					sleeptime = 4000;
+					myFrame.setKeyCharEmpty();
+				}
+				else if (myFrame.getKeyChar() == '5') {
+					sleeptime = 5000;
+					myFrame.setKeyCharEmpty();
+				}
+				else if (myFrame.getKeyChar() == '6') {
+					sleeptime = 6000;
+					myFrame.setKeyCharEmpty();
+				}
+				else if (myFrame.getKeyChar() == '7') {
+					sleeptime = 7000;
+					myFrame.setKeyCharEmpty();
+				}
+				else if (myFrame.getKeyChar() == '8') {
+					sleeptime = 8000;
+					myFrame.setKeyCharEmpty();
+				}
+				else if (myFrame.getKeyChar() == '9') {
+					sleeptime = 9000;
+					myFrame.setKeyCharEmpty();
+				}
 
 				Thread.sleep(sleeptime);
 			}
