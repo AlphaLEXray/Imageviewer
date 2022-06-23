@@ -6,9 +6,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 
-public class MyFrame extends JFrame implements KeyListener {
+@SuppressWarnings("serial")
+public class FrameHandler extends JFrame implements KeyListener {
 
 	char keyChar;
+	int keyCode;
 	boolean fullscreen;
 	
 	public JFrame createFrame(ImageIcon pImageIcon, String pVersion, int pWidth, int pHeight) {
@@ -49,12 +51,12 @@ public class MyFrame extends JFrame implements KeyListener {
 		return (frame);
 	}
 	
-	public int getKeyCode(int pCode) {
-		return(pCode);
-	}
-	
 	public char getKeyChar() {
 		return(keyChar);
+	}
+	
+	public int getKeyCode() {
+		return(keyCode);
 	}
 	
 	public boolean getFullscreen() {
@@ -69,10 +71,15 @@ public class MyFrame extends JFrame implements KeyListener {
 		keyChar = '^';
 	}
 	
+	public void setKeyCodeEmpty() {
+		keyCode = 1;
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		getKeyCode(e.getKeyCode());
+		keyCode = e.getKeyCode();
+		e.setKeyCode(keyCode);
 	}
 
 	@Override
@@ -84,8 +91,10 @@ public class MyFrame extends JFrame implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e.getKeyChar());
 		keyChar = e.getKeyChar();
+		if(keyChar == 'q') {
+			System.exit(0);
+		}
 		e.setKeyChar(keyChar);
 	}
 
