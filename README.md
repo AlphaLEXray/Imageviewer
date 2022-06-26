@@ -25,6 +25,11 @@ Seperate the folder name and the commands with the "|" charachter.
 - frame resolution &rarr; fr|width|height
 - frame and image resolution &rarr; fir|width|height
 - loop time (time spent on each image) &rarr; lt|time (in milliseconds)
+- force fullscreen (windowed fullscreen) &rarr; ff
+- automatic cycling mode &rarr; loop
+- manual cycling mode &rarr; !loop
+
+Automatic cycling mode is the default at the moment.
 
 **Example**:
 
