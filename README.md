@@ -30,4 +30,27 @@ Seperate the folder name and the commands with the "|" charachter.
 
 To set the image and frame resolution to 1920x1080 pixels and a loop time of 2 seconds (2000 milliseconds):
 
-> foldername|fir|1920|1080|lt|2000 
+> foldername|fir|1920|1080|lt|2000
+
+### Modes
+
+1. Automatic cycling mode
+2. Manual cycling mode
+
+#### Automatic cycling mode
+
+This mode automatically cycles through the images at a given rate. 
+
+**cycling/loop time**
+
+This rate can be set at launch through a command in the folder name or by using keys 1 to 9 on the number row. Key '0' sets the cycling time back to the default or the amount of time set in the commands. To pause the automatic cycling press the space bar.
+
+**windowed/ windowed fullscreen**
+
+Use the escape key to exit the windowed fullscreen. The 'f' key can be used to switch between windowed or windowed fullscreen depending on which is currently selected.
+
+#### Manual cycling mode
+
+**cycling through images**
+
+To cycle through the images in a folder you can either use the 'a' and 'd' keys to cycle forwards and backwards respectively or you can use the back- and forward arrow keys.
