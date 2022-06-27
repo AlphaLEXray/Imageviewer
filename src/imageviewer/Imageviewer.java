@@ -1,13 +1,15 @@
 package imageviewer;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Imageviewer {
+public class Imageviewer implements KeyListener{
 	
 	int sleeptime = 2500;
 	int sleeptimestorage = 2500;
@@ -40,6 +42,7 @@ public class Imageviewer {
 		int height = (int) screenSize.getHeight();
 		image = imageHandler.resizeImage(image, width, height);
 		JFrame frame = frameHandler.createFrame(image, pVersion, width, height);
+		frame.addKeyListener(this);
 		JLabel label = labelHandler.createLabel(image);
 		frame.add(label);
 		frame.setVisible(true);
@@ -70,6 +73,7 @@ public class Imageviewer {
 		int imageHeight = (int) screenSize.getHeight();
 
 		JFrame frame = frameHandler.createFrame(image, pVersion, imageWidth, imageHeight);
+		frame.addKeyListener(this);
 
 		// read commands in folder name
 		String[] commands = stringHandler.splitString(imageDirectory.getPath());
@@ -102,6 +106,7 @@ public class Imageviewer {
 			else if (commands[x].equals("ff")) {
 				frame.dispose();
 				frame = frameHandler.createWindowedFullscreenFrame(image, pVersion, imageWidth, imageHeight);
+				frame.addKeyListener(this);
 			} else if (commands[x].equals("loop")) {
 				loop = true;
 			} else if (commands[x].equals("!loop")) {
@@ -137,65 +142,68 @@ public class Imageviewer {
 					label.setIcon(image1);
 					frame.setIconImage(image1.getImage());
 
-					if (frameHandler.getKeyChar() == '' && frameHandler.getFullscreen()) {
+					if (this.getKeyChar() == '' && this.getFullscreen()) {
 
 						JFrame tempFrame = frame;
 						frame.dispose();
 						frame = frameHandler.createFrame(image1, pVersion, imageWidth, imageHeight);
+						frame.addKeyListener(this);
 						frame.add(label);
 						label.setIcon(image1);
 						tempFrame.dispose();
 
-					} else if (frameHandler.getKeyChar() == 'f' && !frameHandler.getFullscreen()) {
+					} else if (this.getKeyChar() == 'f' && !this.getFullscreen()) {
 						JFrame tempFrame = frame;
 						frame.dispose();
 						frame = frameHandler.createWindowedFullscreenFrame(image1, pVersion, imageWidth, imageHeight);
+						frame.addKeyListener(this);
 						frame.add(label);
 						label.setIcon(image1);
 						tempFrame.dispose();
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == 'f' && frameHandler.getFullscreen()) {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == 'f' && this.getFullscreen()) {
 						JFrame tempFrame = frame;
 						frame.dispose();
 						frame = frameHandler.createFrame(image1, pVersion, imageWidth, imageHeight);
+						frame.addKeyListener(this);
 						frame.add(label);
 						label.setIcon(image1);
 						tempFrame.dispose();
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '1') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '1') {
 						sleeptime = 1000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '2') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '2') {
 						sleeptime = 2000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '3') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '3') {
 						sleeptime = 3000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '4') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '4') {
 						sleeptime = 4000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '5') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '5') {
 						sleeptime = 5000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '6') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '6') {
 						sleeptime = 6000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '7') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '7') {
 						sleeptime = 7000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '8') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '8') {
 						sleeptime = 8000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '9') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '9') {
 						sleeptime = 9000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '0') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '0') {
 						sleeptime = sleeptimestorage;
-						frameHandler.setKeyCharEmpty();
+						this.setKeyCharEmpty();
 					}
-					else if (frameHandler.getKeyChar() == ' ') {
+					else if (this.getKeyChar() == ' ') {
 						loop = false;
-						frameHandler.setKeyCharEmpty();
+						this.setKeyCharEmpty();
 						break;
 					}
 
@@ -209,65 +217,68 @@ public class Imageviewer {
 					label.setIcon(image1);
 					frame.setIconImage(image1.getImage());
 
-					if (frameHandler.getKeyChar() == '' && frameHandler.getFullscreen()) {
+					if (this.getKeyChar() == '' && this.getFullscreen()) {
 
 						JFrame tempFrame = frame;
 						frame.dispose();
 						frame = frameHandler.createFrame(image1, pVersion, imageWidth, imageHeight);
+						frame.addKeyListener(this);
 						frame.add(label);
 						label.setIcon(image1);
 						tempFrame.dispose();
 
-					} else if (frameHandler.getKeyChar() == 'f' && !frameHandler.getFullscreen()) {
+					} else if (this.getKeyChar() == 'f' && !this.getFullscreen()) {
 						JFrame tempFrame = frame;
 						frame.dispose();
 						frame = frameHandler.createWindowedFullscreenFrame(image1, pVersion, imageWidth, imageHeight);
+						frame.addKeyListener(this);
 						frame.add(label);
 						label.setIcon(image1);
 						tempFrame.dispose();
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == 'f' && frameHandler.getFullscreen()) {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == 'f' && this.getFullscreen()) {
 						JFrame tempFrame = frame;
 						frame.dispose();
 						frame = frameHandler.createFrame(image1, pVersion, imageWidth, imageHeight);
+						frame.addKeyListener(this);
 						frame.add(label);
 						label.setIcon(image1);
 						tempFrame.dispose();
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '1') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '1') {
 						sleeptime = 1000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '2') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '2') {
 						sleeptime = 2000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '3') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '3') {
 						sleeptime = 3000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '4') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '4') {
 						sleeptime = 4000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '5') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '5') {
 						sleeptime = 5000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '6') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '6') {
 						sleeptime = 6000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '7') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '7') {
 						sleeptime = 7000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '8') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '8') {
 						sleeptime = 8000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '9') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '9') {
 						sleeptime = 9000;
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == '0') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == '0') {
 						sleeptime = sleeptimestorage;
-						frameHandler.setKeyCharEmpty();
+						this.setKeyCharEmpty();
 					}
-					else if (frameHandler.getKeyChar() == ' ') {
+					else if (this.getKeyChar() == ' ') {
 						loop = false;
-						frameHandler.setKeyCharEmpty();
+						this.setKeyCharEmpty();
 						break;
 					}
 
@@ -286,38 +297,38 @@ public class Imageviewer {
 					label.setIcon(image2);
 					frame.setIconImage(image2.getImage());
 
-					if (frameHandler.getKeyChar() == 'a') {
+					if (this.getKeyChar() == 'a') {
 						if (x - 1 >= 0) {
 							x = x - 1;
 						} else if (x - 1 < 0) {
 							x = imagesFromDirectory.length - 1;
 						}
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyChar() == 'd') {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyChar() == 'd') {
 						if (x + 1 <= imagesFromDirectory.length -1) {
 							x = x + 1;
 						} else {
 							x = 0;
 						}
-						frameHandler.setKeyCharEmpty();
-					} else if (frameHandler.getKeyCode() == 37) {
+						this.setKeyCharEmpty();
+					} else if (this.getKeyCode() == 37) {
 						if (x - 1 >= 0) {
 							x = x - 1;
 						} else if (x - 1 < 0) {
 							x = imagesFromDirectory.length - 1;
 						}
-						frameHandler.setKeyCodeEmpty();
-					} else if (frameHandler.getKeyCode() == 39) {
+						this.setKeyCodeEmpty();
+					} else if (this.getKeyCode() == 39) {
 						if (x + 1 <= imagesFromDirectory.length - 1) {
 							x = x + 1;
 						} else {
 							x = 0;
 						}
-						frameHandler.setKeyCodeEmpty();
+						this.setKeyCodeEmpty();
 					}
-					else if (frameHandler.getKeyChar() == ' ') {
+					else if (this.getKeyChar() == ' ') {
 						loop = true;
-						frameHandler.setKeyCharEmpty();
+						this.setKeyCharEmpty();
 						break;
 					}
 					Thread.sleep(100);
@@ -340,5 +351,56 @@ public class Imageviewer {
 	
 	public int getSleeptimestorage() {
 		return(sleeptimestorage);
+	}
+	
+	char keyChar;
+	int keyCode;
+	boolean fullscreen;
+
+	public char getKeyChar() {
+		return(keyChar);
+	}
+	
+	public int getKeyCode() {
+		return(keyCode);
+	}
+	
+	public boolean getFullscreen() {
+		return(fullscreen);
+	}
+	
+	public void setKeyChar(char pInput) {
+		keyChar = pInput;
+	}
+	
+	public void setKeyCharEmpty() {
+		keyChar = '^';
+	}
+	
+	public void setKeyCodeEmpty() {
+		keyCode = 1;
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		keyCode = e.getKeyCode();
+		e.setKeyCode(keyCode);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		keyChar = e.getKeyChar();
+		if(keyChar == 'q') {
+			System.exit(0);
+		}
+		e.setKeyChar(keyChar);
 	}
 }
