@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Imageviewer implements KeyListener{
+public class HandlerOne implements KeyListener{
 	
 	int sleeptime = 2500;
 	int sleeptimestorage = 2500;
